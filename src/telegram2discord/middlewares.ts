@@ -119,9 +119,9 @@ async function makeDiscordMention(username: string, dcBot: Client, bridge: Bridg
 	try {
 		// Get the name of the Discord user this is a reply to
 		const channel = await fetchDiscordChannel(dcBot, bridge);
-		const dcUser = await channel.members.find(R.propEq("displayName", username));
+		const dcUser = await channel.members.find(R.propEq(username, "displayName"));
 
-		return R.ifElse(R.isNil, R.always(username), dcUser => `<@${dcUser.id}>`)(dcUser);
+		return dcUser ? `<@${dcUser.id}>` : username;
 	} catch (err) {
 		// Cannot make a mention. Just return the username
 		return username;

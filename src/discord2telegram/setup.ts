@@ -245,9 +245,13 @@ export function setup(
 						// 	);
 						// } else {
 						const tgMessage = await tgBot.telegram.sendMessage(bridge.telegram.chatId, textToSend, {
-							reply_to_message_id: +replyId,
+							reply_parameters: {
+								message_id: +replyId
+							},
 							parse_mode: "HTML",
-							disable_web_page_preview: bridge.discord.disableWebPreviewOnTelegram,
+							link_preview_options: {
+								is_disabled: bridge.discord.disableWebPreviewOnTelegram
+							},
 							message_thread_id: bridge.tgThread
 						});
 						messageMap.insert(
@@ -320,32 +324,42 @@ export function setup(
 					try {
 						if (oneArray.length > 1) {
 							await tgBot.telegram.sendMediaGroup(bridge.telegram.chatId, oneArray, {
-								reply_to_message_id: +replyId,
+								reply_parameters: {
+									message_id: +replyId
+								},
 								message_thread_id: bridge.tgThread
 							});
 						} else {
 							switch (type) {
 								case "video":
 									await tgBot.telegram.sendVideo(bridge.telegram.chatId, oneArray[0].media, {
-										reply_to_message_id: +replyId,
+										reply_parameters: {
+											message_id: +replyId
+										},
 										message_thread_id: bridge.tgThread
 									});
 									break;
 								case "audio":
 									await tgBot.telegram.sendAudio(bridge.telegram.chatId, oneArray[0].media, {
-										reply_to_message_id: +replyId,
+										reply_parameters: {
+											message_id: +replyId
+										},
 										message_thread_id: bridge.tgThread
 									});
 									break;
 								case "photo":
 									await tgBot.telegram.sendPhoto(bridge.telegram.chatId, oneArray[0].media, {
-										reply_to_message_id: +replyId,
+										reply_parameters: {
+											message_id: +replyId
+										},
 										message_thread_id: bridge.tgThread
 									});
 									break;
 								case "document":
 									await tgBot.telegram.sendDocument(bridge.telegram.chatId, oneArray[0].media, {
-										reply_to_message_id: +replyId,
+										reply_parameters: {
+											message_id: +replyId
+										},
 										message_thread_id: bridge.tgThread
 									});
 									break;
@@ -372,9 +386,13 @@ export function setup(
 					try {
 						// Send it
 						await tgBot.telegram.sendMessage(bridge.telegram.chatId, text, {
-							reply_to_message_id: +replyId,
+							reply_parameters: {
+								message_id: +replyId
+							},
 							parse_mode: "HTML",
-							disable_web_page_preview: bridge.discord.disableWebPreviewOnTelegram,
+							link_preview_options: {
+								is_disabled: bridge.discord.disableWebPreviewOnTelegram
+							},
 							message_thread_id: bridge.tgThread
 						});
 						// }
