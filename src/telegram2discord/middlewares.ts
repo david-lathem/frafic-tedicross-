@@ -219,7 +219,7 @@ function addBridgesToContext(ctx: TediCrossContext, next: () => void) {
  * @param next Function to pass control to next middleware
  */
 function removeD2TBridges(ctx: TediCrossContext, next: () => void) {
-	ctx.tediCross.bridges = R.reject(R.propEq("direction", Bridge.DIRECTION_DISCORD_TO_TELEGRAM))(
+	ctx.tediCross.bridges = R.reject(R.propEq(Bridge.DIRECTION_DISCORD_TO_TELEGRAM, "direction"))(
 		ctx.tediCross.bridges
 	);
 
