@@ -358,6 +358,7 @@ function addReplyObj(ctx: TediCrossContext, next: () => void) {
 	if (!R.isNil(repliedToMessage)) {
 		// This is a reply
 		const isReplyToTediCross =
+			// @ts-ignore
 			!R.isNil(repliedToMessage.from) && R.equals(repliedToMessage.from.id, ctx.TediCross.me.id);
 		ctx.tediCross.replyTo = {
 			isReplyToTediCross,
