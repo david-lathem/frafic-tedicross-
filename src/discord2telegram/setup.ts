@@ -13,7 +13,7 @@ import { Logger } from "../Logger";
 import { BridgeMap } from "../bridgestuff/BridgeMap";
 import { Telegraf } from "telegraf";
 import { escapeHTMLSpecialChars, ignoreAlreadyDeletedError } from "./helpers";
-import { Client, Collection, Message, MessageType, REST, Routes, TextChannel } from "discord.js";
+import { Client, Collection, Message, MessageReferenceType, MessageType, REST, Routes, TextChannel } from "discord.js";
 import { Settings } from "../settings/Settings";
 import { InputMediaVideo, InputMediaAudio, InputMediaDocument, InputMediaPhoto } from "telegraf/types";
 
@@ -197,24 +197,34 @@ export function setup(
 				const messageReference = message?.reference;
 
 				if (typeof messageReference !== "undefined") {
-					const referenceId = messageReference?.messageId;
-					if (typeof referenceId !== "undefined") {
-						//console.log("==== discord2telegram reply ====");
-						//console.log("referenceId: " + referenceId);
-						//console.log("bridge.name: " + bridge.name);
-						[replyId] = await messageMap.getCorrespondingReverse(
-							MessageMap.TELEGRAM_TO_DISCORD,
-							bridge,
-							referenceId as string
-						);
-						//console.log("t2d replyId: " + replyId);
-						if (replyId === undefined) {
-							[replyId] = await messageMap.getCorresponding(
-								MessageMap.DISCORD_TO_TELEGRAM,
+					if (messageReference?.type === MessageReferenceType.Forward) {
+						//forwarded message object
+						const frwdMessage = message.messageSnapshots.get(messageReference?.messageId ?? "") ?? message;
+						//console.log("==== discord2telegram forward ====");
+						//console.log(`[${bridge.name}] ${JSON.stringify(frwdMessage, null, 2)}`);
+						message.content = frwdMessage?.content ?? message.content;
+						message.attachments = frwdMessage?.attachments ?? new Collection();
+					} else {
+						// reply
+						const referenceId = messageReference?.messageId;
+						if (typeof referenceId !== "undefined") {
+							//console.log("==== discord2telegram reply ====");
+							//console.log("referenceId: " + referenceId);
+							//console.log("bridge.name: " + bridge.name);
+							[replyId] = await messageMap.getCorrespondingReverse(
+								MessageMap.TELEGRAM_TO_DISCORD,
 								bridge,
 								referenceId as string
 							);
-							//console.log("d2t replyId: " + replyId);
+							//console.log("t2d replyId: " + replyId);
+							if (replyId === undefined) {
+								[replyId] = await messageMap.getCorresponding(
+									MessageMap.DISCORD_TO_TELEGRAM,
+									bridge,
+									referenceId as string
+								);
+								//console.log("d2t replyId: " + replyId);
+							}
 						}
 					}
 				}
