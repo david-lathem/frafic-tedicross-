@@ -303,10 +303,6 @@ export const relayMessage = (ctx: TediCrossContext) => {
 			const isUpdateMessage = updatePieces.every(p => prepared.text.toLowerCase().includes(p));
 			const parts = prepared.text.split("Update:");
 
-			// 			📢 $JYD — Target 4 Reached
-			// 🆙 Update #4
-			// 🎯 Hit: 0.59
-			// 💰 Profit: +25%
 			if (isUpdateMessage && parts.length > 1) {
 				const cleanedText = prepared.text.replace(/\n/g, " ");
 
