@@ -294,6 +294,8 @@ export const relayMessage = (ctx: TediCrossContext) => {
 
 			const index = lowerInputString.indexOf(lowerSearchString);
 
+			console.log(index);
+
 			if (index !== -1) {
 				prepared.text = prepared.text.substring(0, index);
 			}
@@ -354,16 +356,16 @@ export const relayMessage = (ctx: TediCrossContext) => {
 			const useEmbeds =
 				(messageText.length > 2000 && prepared.bridge.discord.useEmbeds !== "never") || prepared.hasLinks;
 
-			if (useEmbeds) {
+			if (true) {
 				const text =
 					prepared.text.length > 4096 ? prepared.text.substring(0, 4090) + "..." : prepared.text || " ";
 				let embeds: EmbedBuilder[] = [];
 				const photoEmbeds: EmbedBuilder[] = [];
 				// build text embed
 				const embed = new EmbedBuilder().setDescription(text);
-				if (prepared.header) {
-					embed.setTitle(prepared.header);
-				}
+				// if (prepared.header) {
+				// 	embed.setTitle(prepared.header);
+				// }
 				embeds.push(embed);
 				// process attached files
 				if (!R.isNil(prepared.file)) {
