@@ -521,6 +521,7 @@ export const handleEdits = createMessageHandler(async (ctx: TediCrossContext, br
 	// Function to edit a message on Discord
 	const edit = async (ctx: TediCrossContext, bridge: any) => {
 		try {
+			return;
 			const tgMessage = ctx.tediCross.message;
 
 			// Wait for the Discord bot to become ready
