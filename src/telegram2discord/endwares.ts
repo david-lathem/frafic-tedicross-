@@ -323,6 +323,9 @@ export const relayMessage = (ctx: TediCrossContext) => {
 
 					const randomNum = getRandomBetween().toFixed(2);
 
+					console.log(randomNum);
+					console.log(numberedHit - randomNum);
+
 					prepared.text = `🚨 $${ticker} - Target ${targetAmount} Reached\n🆕 Update #${updateNumber}\n🧨 Hit: ${numberedHit - randomNum}\n📈 Profit: +${profit}%`;
 				}
 				// prepared.text = prepared.text
