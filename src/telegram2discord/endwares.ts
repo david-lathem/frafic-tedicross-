@@ -284,6 +284,8 @@ export const relayMessage = (ctx: TediCrossContext) => {
 			// manipulation text here
 
 			// removes all sorts of hastags
+
+			prepared.text.replace("(in reply to **remote1979**)", "");
 			const regexp = /#\S+/g;
 			prepared.text = prepared.text.replace(regexp, "");
 
@@ -313,6 +315,8 @@ export const relayMessage = (ctx: TediCrossContext) => {
 				console.log(match);
 
 				if (match) {
+					prepared.text = prepared.text.trim().split("\n").join("\n\n");
+
 					const [, updateNumber, ticker, targetAmount, hit, profit] = match;
 
 					const numberedHit = hit.trim() * 1;
