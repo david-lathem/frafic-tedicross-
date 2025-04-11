@@ -322,7 +322,7 @@ export const relayMessage = (ctx: TediCrossContext) => {
 						return Math.random() * (max - min) + min;
 					}
 
-					const randomNum = getRandomBetween().toFixed(4);
+					const randomNum = getRandomBetween().toFixed(3);
 
 					console.log(randomNum);
 					console.log(numberedHit - randomNum);
