@@ -322,12 +322,14 @@ export const relayMessage = (ctx: TediCrossContext) => {
 						return Math.random() * (max - min) + min;
 					}
 
-					const randomNum = getRandomBetween().toFixed(3);
+					const randomNum = getRandomBetween()
+						.toString()
+						.match(/^-?\d+(?:\.\d{0,3})?/)[0];
 
 					console.log(randomNum);
 					console.log(numberedHit - randomNum);
 
-					prepared.text = `🚨 $${ticker} - Target ${targetAmount} Reached\n\n🆕 Update #${updateNumber}\n\n🧨 Hit: ${(numberedHit - randomNum).toFixed(3)}\n\n📈 Profit: +${profit}%`;
+					prepared.text = `🚨 $${ticker} - Target ${targetAmount} Reached\n\n🆕 Update #${updateNumber}\n\n🧨 Hit: ${(numberedHit - randomNum).toString().match(/^-?\d+(?:\.\d{0,3})?/)[0]}\n\n📈 Profit: +${profit}%`;
 				}
 				// prepared.text = prepared.text
 				// 	.trim()
