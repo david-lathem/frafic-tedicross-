@@ -315,13 +315,11 @@ export const relayMessage = (ctx: TediCrossContext) => {
 				console.log(match);
 
 				if (match) {
-					prepared.text = prepared.text.trim().split("\n").join("\n\n");
-
 					const [, updateNumber, ticker, targetAmount, hit, profit] = match;
 
 					const numberedHit = hit.trim() * 1;
 
-					function getRandomBetween(min = 0.03, max = 0.09) {
+					function getRandomBetween(min = 0.003, max = 0.009) {
 						return Math.random() * (max - min) + min;
 					}
 
@@ -330,7 +328,7 @@ export const relayMessage = (ctx: TediCrossContext) => {
 					console.log(randomNum);
 					console.log(numberedHit - randomNum);
 
-					prepared.text = `🚨 $${ticker} - Target ${targetAmount} Reached\n🆕 Update #${updateNumber}\n🧨 Hit: ${numberedHit - randomNum}\n📈 Profit: +${profit}%`;
+					prepared.text = `🚨 $${ticker} - Target ${targetAmount} Reached\n\n🆕 Update #${updateNumber}\n\n🧨 Hit: ${(numberedHit - randomNum).toFixed(3)}\n\n📈 Profit: +${profit}%`;
 				}
 				// prepared.text = prepared.text
 				// 	.trim()
