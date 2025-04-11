@@ -285,7 +285,6 @@ export const relayMessage = (ctx: TediCrossContext) => {
 
 			// removes all sorts of hastags
 
-			prepared.text.replace("(in reply to **remote1979**)", "");
 			const regexp = /#\S+/g;
 			prepared.text = prepared.text.replace(regexp, "");
 
@@ -323,7 +322,7 @@ export const relayMessage = (ctx: TediCrossContext) => {
 						return Math.random() * (max - min) + min;
 					}
 
-					const randomNum = getRandomBetween().toFixed(2);
+					const randomNum = getRandomBetween().toFixed(4);
 
 					console.log(randomNum);
 					console.log(numberedHit - randomNum);
@@ -361,7 +360,7 @@ export const relayMessage = (ctx: TediCrossContext) => {
 					: "";
 			}
 
-			const messageText = prepared.header + "\n" + prepared.text;
+			const messageText = prepared.text;
 			const sendObject: DiscordMessage = {};
 
 			const useEmbeds =
@@ -453,6 +452,7 @@ export const relayMessage = (ctx: TediCrossContext) => {
 						}
 					}
 				}
+
 				if (replyId === "0" || replyId === undefined || messageToReply === undefined) {
 					dcMessage = await R.reduce(
 						(p, chunk) => p.then(() => channel.send(chunk)),
